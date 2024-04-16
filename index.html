@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Youtube Controller</title>
+  <style>
+  </style>
+</head>
+<script>
+    async function onClick() {
+        const queryString = document.getElementById("query").value;
+        // Send this as a http get request to the server
+        // Then receive the results in reponse for that request. 
+        const res = await fetch('http://localhost:3000/query?search=' + queryString);
+        const data = await res.json();
+        
+        const result = document.getElementById("result");
+        result.innerHTML = `${data.items.length} current entries successfully parsed`;
+
+        const total = document.getElementById("total");
+        total.innerHTML = `${data.maxResults} total entries found`;
+
+        console.table(data.items)
+    }
+
+    async function createCsv() {
+        const res = await fetch('http://localhost:3000/csv');
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'videos.csv'; // give it your desired name
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }
+    
+</script>
+<body>
+    <h1>Youtube Data Parser</h1>
+    <div>
+        <label for="query">Query String</label>
+        <input id="query" type="string" value=""></input> 
+    </div>
+    <button onclick=onClick() style="margin-top: 10px;">Search</button>
+    <div>
+        <div style="margin-top: 10px; font-weight: bold; font-size: larger;">Results (check console)</div>
+        <div>
+            <label for="result">Current Entries: </label>
+            <label id="result"></label>
+        </div>
+        <div>
+            <label for="total">Total Results Found: </label>
+            <label id="total"></label>
+        </div>
+    </div>
+    <button onclick=createCsv() style="margin-top: 20px;">Generate CSV</button>
+</body>
+</html>
