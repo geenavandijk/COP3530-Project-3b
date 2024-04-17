@@ -33,7 +33,7 @@ void Graph::InsertGraph(string videoID, string title)
     {
         //x = title[i];
         ///fix this!! doesnt recognize end of string as space
-        if (x == ' ' || x == ':' || x == '-'|| x == '_' || x == ',' || x == ';' || x == '.' || x == '"')
+        if (x == ' ' || x == ':' || x == '-'|| x == '_' || x == ',' || x == ';' || x == '.' || x == '"' || x == '\r')
         {
             //temp.insert(word);
             int i;
