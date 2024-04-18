@@ -18,7 +18,8 @@ private:
     map<string, set <string> > titleGraph;
 
 public:
-    void InsertGraph(string videoID, string title);
+    //void InsertGraph(string videoID, string title);
+    void InsertGraph(string line);
     //Returns true if videoID is connected to a bad video using BFS
     bool isConnectedBFS(string videoID);
     void hasBadWord(string videoID);

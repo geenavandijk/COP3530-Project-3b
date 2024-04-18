@@ -9,9 +9,9 @@
 
 //static const vector<string> badWords {"fuck", "shit", "sex", "penis", "drugs", "fight", "murder","gambling","blood","guns","idiot","dumb","stupid"};
 
-void Graph::InsertGraph(string videoID, string title)
+void Graph::InsertGraph(string line)
 {
-    graph[videoID];
+    //graph[videoID];
     vector <string> filler;
     filler.push_back("this");
     filler.push_back("the");
@@ -25,25 +25,36 @@ void Graph::InsertGraph(string videoID, string title)
     filler.push_back("them");
     filler.push_back("they");
     filler.push_back("us");
+    filler.push_back("of");
+    filler.push_back("you");
+    filler.push_back("is");
+    filler.push_back("for");
+    filler.push_back("in");
 
     string word = "";
+    string videoID = "";
 
-    for (auto x : title)
-    //for (int i = 0; i <= title.size(); i++)
+    for(int i = 0; i < line.size(); i++)
     {
-        //x = title[i];
-        ///fix this!! doesnt recognize end of string as space
-        if (x == ' ' || x == ':' || x == '-'|| x == '_' || x == ',' || x == ';' || x == '.' || x == '"' || x == '\r')
+        while (videoID.size() < 11)
+        {
+            while (line[i] == '"' || line[i] == ' ')
+                i++;
+            videoID = videoID + line[i];
+            i++;
+        }
+        graph[videoID];
+        if (line[i] == ' ' || line[i] == ':' || line[i] == '-'|| line[i] == '_' || line[i] == ',' || line[i] == ';' || line[i] == '.' || line[i] == '"' || line[i] == '\r' || line[i] == '(' || line[i] == ')')
         {
             //temp.insert(word);
-            int i;
-            for (i = 0; i < filler.size(); i++)
+            int j;
+            for (j = 0; j < filler.size(); j++)
             {
-                if (word.compare(filler[i]) == 0)
+                if (word.compare(filler[j]) == 0)
                     word = "";
             }
 
-            if (i = filler.size())
+            if (!word.empty())
             {
                 titleGraph[videoID].insert(word);
 
@@ -51,7 +62,8 @@ void Graph::InsertGraph(string videoID, string title)
             }
         }
         else {
-            word = word + x;
+            line[i] = tolower(line[i]);
+            word = word + line[i];
         }
     }
 
@@ -131,7 +143,8 @@ void Graph::hasBadWord(string videoID)
     for (int i = 0; i < badWords.size();i++)
     {
         for (set<string>:: iterator it = titleGraph[videoID].begin(); it !=  titleGraph[videoID].end(); it++)
-            if(badWords[i].compare(*it) == 0)
+            //if(badWords[i].compare(*it) == 0)
+            if(it->find(badWords[i]) != -1)
             {
                 isBad[videoID] = true;
                 return;
