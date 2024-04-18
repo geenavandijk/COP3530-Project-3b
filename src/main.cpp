@@ -6,7 +6,7 @@ int main() {
 
     Graph graph;
     ifstream myDataFile;
-    myDataFile.open("../yt-data.csv");
+    myDataFile.open("../text.csv");
     string line;
    // char delimiter = ',';
     if (myDataFile.is_open())
@@ -24,7 +24,7 @@ int main() {
 
     myDataFile.close();
 
-    if(graph.isConnectedBFS("XE9lhjfbCJo"))
+    if(graph.isConnectedBFS("W8y-Qo375fI"))
         cout << "this video is connected to a bad video";
     else
         cout << "this video is NOT connected to a bad video";
