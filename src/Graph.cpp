@@ -38,13 +38,13 @@ void Graph::InsertGraph(string line)
     {
         while (videoID.size() < 11)
         {
-            while (line[i] == '"' || line[i] == ' ')
-                i++;
+            //while (line[i] == '"' || line[i] == ' ')
+               // i++;
             videoID = videoID + line[i];
             i++;
         }
         graph[videoID];
-        if (line[i] == ' ' || line[i] == ':' || line[i] == '-'|| line[i] == '_' || line[i] == ',' || line[i] == ';' || line[i] == '.' || line[i] == '"' || line[i] == '\r' || line[i] == '(' || line[i] == ')')
+        if (line[i] == ' ' || line[i] == ':' || line[i] == '-'|| line[i] == '_' || line[i] == ',' || line[i] == ';' || line[i] == '.' || line[i] == '"' || line[i] == '\r' || line[i] == '(' || line[i] == ')'|| line[i] == '!' || line[i] == '|')
         {
             //temp.insert(word);
             int j;
@@ -57,7 +57,8 @@ void Graph::InsertGraph(string line)
             if (!word.empty())
             {
                 titleGraph[videoID].insert(word);
-
+                if (!isBad[videoID])
+                    isBadWord(videoID, word);
                 word = "";
             }
         }
@@ -67,7 +68,7 @@ void Graph::InsertGraph(string line)
         }
     }
 
-    hasBadWord(videoID);
+    //hasBadWord(videoID);
 
     //create edges :')
     for (map<string , set <string> >:: iterator x = graph.begin(); x != graph.end(); x++)
@@ -124,7 +125,7 @@ bool Graph::isConnectedBFS(string videoID)
     return false;
 }
 
-void Graph::hasBadWord(string videoID)
+void Graph::isBadWord(string videoID, string word)
 {
     vector<string> badWords;
     badWords.push_back("fuck");
@@ -142,13 +143,18 @@ void Graph::hasBadWord(string videoID)
 
     for (int i = 0; i < badWords.size();i++)
     {
-        for (set<string>:: iterator it = titleGraph[videoID].begin(); it !=  titleGraph[videoID].end(); it++)
-            //if(badWords[i].compare(*it) == 0)
+        if(word.find(badWords[i]) != -1)
+        {
+            isBad[videoID] = true;
+            return;
+        }
+        /*for (set<string>:: iterator it = titleGraph[videoID].begin(); it !=  titleGraph[videoID].end(); it++)
+
             if(it->find(badWords[i]) != -1)
             {
                 isBad[videoID] = true;
                 return;
-            }
+            }*/
     }
 
     isBad[videoID] = false;

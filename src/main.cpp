@@ -6,15 +6,17 @@ int main() {
 
     Graph graph;
     ifstream myDataFile;
-    myDataFile.open("../text.csv");
+    myDataFile.open("../yt-data.csv");
     string line;
    // char delimiter = ',';
     if (myDataFile.is_open())
     {
         getline(myDataFile,line);
-        while(getline(myDataFile,line))
+        int i = 0;
+        while(getline(myDataFile,line) && i < 700)
         {
             graph.InsertGraph(line);
+            i++;
         }
     }
     else
@@ -22,7 +24,9 @@ int main() {
 
     myDataFile.close();
 
-    if(graph.isConnectedBFS("FvOpPeKSf_4"))
+    if(graph.isConnectedBFS("XE9lhjfbCJo"))
         cout << "this video is connected to a bad video";
+    else
+        cout << "this video is NOT connected to a bad video";
     return 0;
 }
