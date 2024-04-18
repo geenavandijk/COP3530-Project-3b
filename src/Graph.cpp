@@ -5,9 +5,7 @@
 #include "Graph.h"
 #include <queue>
 #include <list>
-#include <sstream>
 
-//static const vector<string> badWords {"fuck", "shit", "sex", "penis", "drugs", "fight", "murder","gambling","blood","guns","idiot","dumb","stupid"};
 
 void Graph::InsertGraph(string line)
 {
@@ -38,12 +36,12 @@ void Graph::InsertGraph(string line)
     {
         while (videoID.size() < 11)
         {
-            //while (line[i] == '"' || line[i] == ' ')
-               // i++;
             videoID = videoID + line[i];
             i++;
         }
-        graph[videoID];
+        //-------------
+        //graph[videoID];
+        //----------------
         if (line[i] == ' ' || line[i] == ':' || line[i] == '-'|| line[i] == '_' || line[i] == ',' || line[i] == ';' || line[i] == '.' || line[i] == '"' || line[i] == '\r' || line[i] == '(' || line[i] == ')'|| line[i] == '!' || line[i] == '|')
         {
             //temp.insert(word);
@@ -59,6 +57,25 @@ void Graph::InsertGraph(string line)
                 titleGraph[videoID].insert(word);
                 if (!isBad[videoID])
                     isBadWord(videoID, word);
+                graph[videoID];
+                for (unordered_map<string , unordered_set <string> >:: iterator x = graph.begin(); x != graph.end(); x++)
+                {
+                    if (x->first.compare(videoID) == 0)
+                        continue;
+
+                    //use set.find ---
+
+                    //for (unordered_set<string>::iterator it = titleGraph[videoID].begin(); it != titleGraph[videoID].end(); it++)
+                    {
+                        if(titleGraph[x->first].find(word) != titleGraph[x->first].end())
+                        {
+                            graph[videoID].insert(x->first);
+                            graph[x->first].insert(videoID);
+                            break;
+                        }
+
+                    }
+                }
                 word = "";
             }
         }
@@ -71,14 +88,16 @@ void Graph::InsertGraph(string line)
     //hasBadWord(videoID);
 
     //create edges :')
-    for (map<string , set <string> >:: iterator x = graph.begin(); x != graph.end(); x++)
+    /*for (unordered_map<string , unordered_set <string> >:: iterator x = graph.begin(); x != graph.end(); x++)
     {
         if (x->first.compare(videoID) == 0)
             continue;
 
-        for (set<string>:: iterator it1 = titleGraph[videoID].begin(); it1 !=  titleGraph[videoID].end(); it1++)
+        //use set.find ---
+
+        for (unordered_set<string>:: iterator it1 = titleGraph[videoID].begin(); it1 !=  titleGraph[videoID].end(); it1++)
         {
-            for (set<string>:: iterator it2 = titleGraph[x->first].begin(); it2 !=  titleGraph[x->first].end(); it2++)
+            for (unordered_set<string>:: iterator it2 = titleGraph[x->first].begin(); it2 !=  titleGraph[x->first].end(); it2++)
             {
 
                 if ((*it1).compare(*it2) == 0)
@@ -90,14 +109,14 @@ void Graph::InsertGraph(string line)
             }
         }
 
-    }
+    }*/
 
 }
 
 bool Graph::isConnectedBFS(string videoID)
 {
     //perform bfs
-    set <string> visited;
+    unordered_set <string> visited;
     queue <string> q;
 
     visited.insert(videoID);
@@ -111,8 +130,8 @@ bool Graph::isConnectedBFS(string videoID)
         if (isBad[u])
             return true;
         q.pop();
-        set<string> neighbors = graph[u];
-        for (set<string>::iterator it =  neighbors.begin(); it != neighbors.end(); it++ )
+        unordered_set<string> neighbors = graph[u];
+        for (unordered_set<string>::iterator it =  neighbors.begin(); it != neighbors.end(); it++ )
         {
             if(visited.count(*it) == 0)
             {
@@ -148,13 +167,7 @@ void Graph::isBadWord(string videoID, string word)
             isBad[videoID] = true;
             return;
         }
-        /*for (set<string>:: iterator it = titleGraph[videoID].begin(); it !=  titleGraph[videoID].end(); it++)
 
-            if(it->find(badWords[i]) != -1)
-            {
-                isBad[videoID] = true;
-                return;
-            }*/
     }
 
     isBad[videoID] = false;

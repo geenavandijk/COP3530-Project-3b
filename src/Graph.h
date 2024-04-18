@@ -7,15 +7,16 @@
 #include <vector>
 #include <string>
 #include <map>
-#include <set>
+#include <unordered_set>
 #include <utility>
 using namespace std;
 
 class Graph {
 private:
-    map<string , set <string> > graph;
-    map<string, bool> isBad;
-    map<string, set <string> > titleGraph;
+    //no order necessary
+    unordered_map<string , unordered_set <string> > graph;
+    unordered_map<string, bool> isBad;
+    unordered_map<string, unordered_set <string> > titleGraph;
 
 public:
     //void InsertGraph(string videoID, string title);

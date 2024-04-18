@@ -13,7 +13,7 @@ int main() {
     {
         getline(myDataFile,line);
         int i = 0;
-        while(getline(myDataFile,line) && i < 700)
+        while(getline(myDataFile,line))
         {
             graph.InsertGraph(line);
             i++;
