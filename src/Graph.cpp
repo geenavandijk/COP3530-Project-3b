@@ -5,6 +5,7 @@
 #include "Graph.h"
 #include <queue>
 #include <list>
+#include <stack>
 
 
 void Graph::InsertGraph(string line)
@@ -141,6 +142,37 @@ bool Graph::isConnectedBFS(string videoID)
             {
                 visited.insert(*it);
                 q.push(*it);
+            }
+        }
+    }
+
+    return false;
+}
+
+bool Graph::isConnectedDFS(string videoID)
+{
+    //perform bfs
+    unordered_set <string> visited;
+    stack <string> s;
+
+    visited.insert(videoID);
+    s.push(videoID);
+
+    while (!s.empty())
+    {
+        string u = s.top();
+
+        //Check if video has a bad word
+        if (isBad[u])
+            return true;
+        s.pop();
+        unordered_set<string> neighbors = graph[u];
+        for (unordered_set<string>::iterator it =  neighbors.begin(); it != neighbors.end(); it++ )
+        {
+            if(visited.count(*it) == 0)
+            {
+                visited.insert(*it);
+                s.push(*it);
             }
         }
     }

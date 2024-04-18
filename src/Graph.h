@@ -23,6 +23,8 @@ public:
     void InsertGraph(string line);
     //Returns true if videoID is connected to a bad video using BFS
     bool isConnectedBFS(string videoID);
+    //Returns true if videoID is connected to a bad video using DFS
+    bool isConnectedDFS(string videoID);
     void isBadWord(string videoID, string word);
     Graph(){};
 
