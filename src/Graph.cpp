@@ -32,7 +32,7 @@ void Graph::InsertGraph(string line)
     string word = "";
     string videoID = "";
 
-    for(int i = 0; i < line.size(); i++)
+    for(int i = 0; i <= line.size(); i++)
     {
         while (videoID.size() < 11)
         {
@@ -42,17 +42,20 @@ void Graph::InsertGraph(string line)
         //-------------
         //graph[videoID];
         //----------------
-        if (line[i] == ' ' || line[i] == ':' || line[i] == '-'|| line[i] == '_' || line[i] == ',' || line[i] == ';' || line[i] == '.' || line[i] == '"' || line[i] == '\r' || line[i] == '(' || line[i] == ')'|| line[i] == '!' || line[i] == '|')
+        if (!word.empty() && (line[i] == ' ' || line[i] == ':' || line[i] == '-'|| line[i] == '_' || line[i] == ',' || line[i] == ';' || line[i] == '.' || line[i] == '"'|| line[i] == '(' || line[i] == ')'|| line[i] == '!' || line[i] == '|' || line[i] == '\n' || i == line.size()))
         {
             //temp.insert(word);
             int j;
             for (j = 0; j < filler.size(); j++)
             {
                 if (word.compare(filler[j]) == 0)
+                {
                     word = "";
+                    continue;
+                }
             }
 
-            if (!word.empty())
+            //if (!word.empty())
             {
                 titleGraph[videoID].insert(word);
                 if (!isBad[videoID])
@@ -71,7 +74,7 @@ void Graph::InsertGraph(string line)
                         {
                             graph[videoID].insert(x->first);
                             graph[x->first].insert(videoID);
-                            break;
+                            //break;
                         }
 
                     }
@@ -79,7 +82,8 @@ void Graph::InsertGraph(string line)
                 word = "";
             }
         }
-        else {
+        if (isalpha(line[i]))
+        {
             line[i] = tolower(line[i]);
             word = word + line[i];
         }
