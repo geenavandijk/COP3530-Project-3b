@@ -3,13 +3,13 @@
 #include <fstream>
 
 int main() {
-    time_t start, end;
+
     Graph graph;
     ifstream myDataFile;
     myDataFile.open("../yt-data.csv");
     string line;
    // char delimiter = ',';
-   time (&start);
+   auto start = std::chrono::steady_clock::now();
     if (myDataFile.is_open())
     {
         getline(myDataFile,line);
@@ -23,28 +23,26 @@ int main() {
     else
         cout << "unable to open file" << endl;
 
-    time(&end);
-    double time_taken = double (end - start);
-    cout << "It took " << time_taken << " seconds to load the graph" << endl << endl;
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now()-start);
+
+    cout << "It took " << elapsed.count() << " milliseconds to load the graph" << endl << endl;
 
     myDataFile.close();
 
-    time(&start);
+    start = std::chrono::steady_clock::now();
     if(graph.isConnectedBFS("W8y-Qo375fI"))
         cout << "this video is connected to a bad video" << endl;
     else
         cout << "this video is NOT connected to a bad video"<< endl;
-    time(&end);
-    time_taken = double (end - start);
-    cout << "It took " << time_taken << " second for isConnectedBFS to run" << endl << endl;
+    elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now()-start);
+    cout << "It took " << elapsed.count() << " millisecond for isConnectedBFS to run" << endl << endl;
 
-    time(&start);
+    start = std::chrono::steady_clock::now();
     if(graph.isConnectedDFS("W8y-Qo375fI"))
         cout << "this video is connected to a bad video" << endl;
     else
         cout << "this video is NOT connected to a bad video"<< endl;
-    time(&end);
-    time_taken = double (end - start);
-    cout << "It took " << time_taken << " second for isConnectedDFS to run" << endl;
+    elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now()-start);
+    cout << "It took " << elapsed.count() << " millisecond for isConnectedDFS to run" << endl;
     return 0;
 }
