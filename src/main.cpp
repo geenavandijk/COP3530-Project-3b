@@ -89,7 +89,7 @@ int main() {
     {
         getline(myDataFile,line);
         int i = 0;
-        while(getline(myDataFile,line) && i <350)
+        while(getline(myDataFile,line) && i <337)
         {
             if (!line.empty())
                 graph.InsertGraph(line, filler, badWords);
@@ -107,22 +107,66 @@ int main() {
 
     //get user input for video to search
 
-    string video_id = "c86t8hoVg8E";
-//
-    start = std::chrono::steady_clock::now();
-    if(graph.isConnectedBFS(video_id))
-        cout << "this video is connected to a bad video" << endl;
-    else
-        cout << "this video is NOT connected to a bad video"<< endl;
-    elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now()-start);
-    cout << "It took " << elapsed.count() << " millisecond for isConnectedBFS to run" << endl << endl;
+    string video_id;
+    int selection;
+    int bfs,dfs;
 
-    start = std::chrono::steady_clock::now();
-    if(graph.isConnectedDFS(video_id))
-        cout << "this video is connected to a bad video" << endl;
-    else
-        cout << "this video is NOT connected to a bad video"<< endl;
-    elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now()-start);
-    cout << "It took " << elapsed.count() << " millisecond for isConnectedDFS to run" << endl;
+    cout << "Lets see if we can link a popular kids YouTube video to a video that is NOT kid friendly." << endl << endl;
+    cout << "Please make your selection out of the following popular videos: (type the number value, -1 to terminate) " << endl;
+    cout << "1. The Lion King Official Trailer\n2. Baby Shark Dance \n3. Twinkle, Twinkle, Little Star\n4. Bluey and Bingo DIY Paint Your Own Figurines! Crafts for Kids\n5. Blues Clues and You Kitchen Setup for Picnic! Mail Time" << endl;
+    cin >> selection;
+    while (selection != -1)
+    {
+        switch(selection) {
+            case 1:
+                video_id = "7TavVZMewpY";
+                break;
+            case 2:
+                video_id = "XqZsoesa55w";
+                break;
+            case 3:
+                video_id = "7Reju_WYT4Y";
+                break;
+            case 4:
+                video_id = "G0n-WOrAUFw";
+                break;
+            case 5:
+                video_id = "NygWzfBR1vs";
+                break;
+            default:
+                video_id = "7TavVZMewpY";
+                cout << "Not a valid selection, defaulting to 1." << endl;
+
+        }
+        start = std::chrono::steady_clock::now();
+        if (graph.isConnectedBFS(video_id))
+            cout << "this video is connected to a bad video" << endl;
+        else
+            cout << "this video is NOT connected to a bad video" << endl;
+        elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start);
+        bfs =  elapsed.count();
+        cout << "It took " << bfs << " millisecond for isConnectedBFS to run" << endl << endl;
+
+        start = std::chrono::steady_clock::now();
+        if (graph.isConnectedDFS(video_id))
+            cout << "this video is connected to a bad video" << endl;
+        else
+            cout << "this video is NOT connected to a bad video" << endl;
+        elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start);
+        dfs =  elapsed.count();
+        cout << "It took " << dfs << " millisecond for isConnectedDFS to run" << endl << endl;
+
+        if (dfs == bfs)
+            cout << "DFS and BFS took the same amount of time!" << endl;
+        else if (dfs > bfs)
+            cout << "DFS was faster!" << endl;
+        else
+            cout << "BFS was faster!" << endl;
+
+        cout << "Please make another selection or type -1 to exit." << endl;
+        cin >> selection;
+    }
+
+    cout << "Thank you and Go Fvck yrsf!"<<endl;
     return 0;
 }

@@ -21,6 +21,9 @@ void Graph::InsertGraph(string inputLine, unordered_set<string>& filler, unorder
     videoID = inputLine.substr(0,11);
     string line = inputLine.substr(12);
 
+    if (graph.count(videoID))
+        return;
+
     for(int i = 0; i <= line.size(); i++)
     {
         /*while (videoID.size() < 11)
@@ -98,7 +101,7 @@ bool Graph::isConnectedBFS(string videoID)
 
 bool Graph::isConnectedDFS(string videoID)
 {
-    //perform bfs
+    //perform dfs
     unordered_set <string> visited;
     stack <string> s;
 
