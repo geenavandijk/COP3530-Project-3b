@@ -20,7 +20,7 @@ private:
 
 public:
     //void InsertGraph(string videoID, string title);
-    void InsertGraph(string line, unordered_set<string>& filler, unordered_set<string>& badWords);
+    void InsertGraph(string inputLine, unordered_set<string>& filler, unordered_set<string>& badWords);
     //Returns true if videoID is connected to a bad video using BFS
     bool isConnectedBFS(string videoID);
     //Returns true if videoID is connected to a bad video using DFS

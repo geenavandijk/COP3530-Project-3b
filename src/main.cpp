@@ -56,6 +56,13 @@ int main() {
     filler.insert ("hours");
     filler.insert("years");
     filler.insert("time");
+    filler.insert("full");
+    filler.insert("out");
+    //words that have a lot of instances and may heavily influence the result but aren't that substantial
+    filler.insert("color");
+    filler.insert("game");
+    filler.insert("blue");
+    filler.insert("live");
 
 
     //set of bad words
@@ -82,9 +89,10 @@ int main() {
     {
         getline(myDataFile,line);
         int i = 0;
-        while(getline(myDataFile,line))
+        while(getline(myDataFile,line) && i <350)
         {
-            graph.InsertGraph(line, filler, badWords);
+            if (!line.empty())
+                graph.InsertGraph(line, filler, badWords);
             i++;
         }
     }
@@ -99,7 +107,7 @@ int main() {
 
     //get user input for video to search
 
-    string video_id = "uDCDGzT-2IQ";
+    string video_id = "c86t8hoVg8E";
 
     start = std::chrono::steady_clock::now();
     if(graph.isConnectedBFS(video_id))

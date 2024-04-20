@@ -6,21 +6,30 @@
 #include <queue>
 #include <list>
 #include <stack>
+#include <iostream>
 
 
-void Graph::InsertGraph(string line, unordered_set<string>& filler, unordered_set<string>& badWords)
+void Graph::InsertGraph(string inputLine, unordered_set<string>& filler, unordered_set<string>& badWords)
 {
     string word = "";
     string videoID = "";
 
+    //split line by first , and rest save id and parse the title
+    //check if id is 11 characters
+    int posDelimeter = inputLine.find(',');
+    if (posDelimeter != 11)
+        return;
+    videoID = inputLine.substr(0,11);
+    string line = inputLine.substr(12);
+
     for(int i = 0; i <= line.size(); i++)
     {
-        while (videoID.size() < 11)
+        /*while (videoID.size() < 11)
         {
             videoID = videoID + line[i];
             i++;
-        }
-        if (!word.empty() && (line[i] == ' ' || line[i] == ':' || line[i] == '-'|| line[i] == '_' || line[i] == ',' || line[i] == ';' || line[i] == '.' || line[i] == '"'|| line[i] == '(' || line[i] == ')'|| line[i] == '!' || line[i] == '|' || line[i] == '\n' || i == line.size()))
+        }*/
+        if (!word.empty() && (line[i] == ' ' || line[i] == ':' || line[i] == '-'|| line[i] == '_' || line[i] == ',' || line[i] == ';' || line[i] == '.' || line[i] == '"'|| line[i] == '(' || line[i] == ')'|| line[i] == '!' || line[i] == '|' || line[i] == '\r' || i == line.size()))
         {
             if (filler.find(word)!= filler.end())
             {
@@ -34,6 +43,8 @@ void Graph::InsertGraph(string line, unordered_set<string>& filler, unordered_se
                 if (!isBad[videoID])
                     isBadWord(videoID, word, badWords);
                 graph[videoID];
+
+                //create edges
                 for (unordered_map<string , unordered_set <string> >:: iterator x = graph.begin(); x != graph.end(); x++)
                 {
                     if (x->first.compare(videoID) == 0)
@@ -119,13 +130,10 @@ bool Graph::isConnectedDFS(string videoID)
 
 void Graph::isBadWord(string videoID, string word, unordered_set<string>& badWords)
 {
+    if(badWords.find(word) != badWords.end())
     {
-        if(badWords.find(word) != badWords.end())
-        {
-            isBad[videoID] = true;
-            return;
-        }
-
+        isBad[videoID] = true;
+        return;
     }
 
     isBad[videoID] = false;
