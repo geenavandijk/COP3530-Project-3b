@@ -89,9 +89,10 @@ int main() {
     {
         getline(myDataFile,line);
         int i = 0;
-        while(getline(myDataFile,line) && i <337)
+        while(getline(myDataFile,line))
         {
             if (!line.empty())
+                if ( i > 337)
                 graph.InsertGraph(line, filler, badWords);
             i++;
         }
@@ -167,6 +168,6 @@ int main() {
         cin >> selection;
     }
 
-    cout << "Thank you and Go Fvck yrsf!"<<endl;
+    cout << "Thank you!"<<endl;
     return 0;
 }

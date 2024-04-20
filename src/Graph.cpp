@@ -6,7 +6,7 @@
 #include <queue>
 #include <list>
 #include <stack>
-
+#include <iostream>
 
 void Graph::InsertGraph(string inputLine, unordered_set<string>& filler, unordered_set<string>& badWords)
 {
@@ -101,6 +101,7 @@ bool Graph::isConnectedBFS(string videoID)
 
 bool Graph::isConnectedDFS(string videoID)
 {
+    cout << "********" << graph.size() << "***********" << endl;
     //perform dfs
     unordered_set <string> visited;
     stack <string> s;
