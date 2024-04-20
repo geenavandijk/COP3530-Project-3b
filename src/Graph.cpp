@@ -6,7 +6,6 @@
 #include <queue>
 #include <list>
 #include <stack>
-#include <iostream>
 
 
 void Graph::InsertGraph(string inputLine, unordered_set<string>& filler, unordered_set<string>& badWords)
