@@ -168,6 +168,6 @@ int main() {
         cin >> selection;
     }
 
-    cout << "Thank you!"<<endl;
+    cout << "Goodbye!"<<endl;
     return 0;
 }
