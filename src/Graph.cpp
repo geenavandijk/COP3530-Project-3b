@@ -101,7 +101,6 @@ bool Graph::isConnectedBFS(string videoID)
 
 bool Graph::isConnectedDFS(string videoID)
 {
-    cout << "********" << graph.size() << "***********" << endl;
     //perform dfs
     unordered_set <string> visited;
     stack <string> s;
@@ -142,3 +141,5 @@ void Graph::isBadWord(string videoID, string word, unordered_set<string>& badWor
     isBad[videoID] = false;
 
 }
+
+int Graph::getSize() {return graph.size();}

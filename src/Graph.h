@@ -26,6 +26,7 @@ public:
     //Returns true if videoID is connected to a bad video using DFS
     bool isConnectedDFS(string videoID);
     void isBadWord(string videoID, string word, unordered_set<string>& badWords);
+    int getSize();
     Graph(){};
 
 };

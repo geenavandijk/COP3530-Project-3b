@@ -63,6 +63,12 @@ int main() {
     filler.insert("game");
     filler.insert("blue");
     filler.insert("live");
+    filler.insert("english");
+    filler.insert("stories");
+    filler.insert("story");
+    filler.insert("official");
+    filler.insert("funny");
+    filler.insert("fun");
 
 
     //set of bad words
@@ -92,10 +98,10 @@ int main() {
         while(getline(myDataFile,line))
         {
             if (!line.empty())
-                if ( i > 337)
                 graph.InsertGraph(line, filler, badWords);
             i++;
         }
+        cout << graph.getSize() << endl;
     }
     else
         cout << "unable to open file" << endl;
