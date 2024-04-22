@@ -69,6 +69,7 @@ int main() {
     filler.insert("official");
     filler.insert("funny");
     filler.insert("fun");
+    filler.insert("new");
 
 
     //set of bad words
@@ -165,7 +166,7 @@ int main() {
 
         if (dfs == bfs)
             cout << "DFS and BFS took the same amount of time!" << endl;
-        else if (dfs > bfs)
+        else if (dfs < bfs)
             cout << "DFS was faster!" << endl;
         else
             cout << "BFS was faster!" << endl;
