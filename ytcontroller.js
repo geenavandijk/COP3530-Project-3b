@@ -5,7 +5,7 @@ class YTController {
     constructor() {
         this.controller = google.youtube({
             version: 'v3',
-            auth: API_KEY
+            auth: API_KEY // using API key as authorization and specifying version 3 
         });       
         
         this.curItems = ''; 
@@ -25,8 +25,8 @@ class YTController {
         // Parse the results and construct an object with {videoId and videoTitle}
         const data = [];
         items.forEach(i => {
-            // Filter out only youtube videos. If we don't want to filter that out, then
-            // just remove this condition.
+            // Filter out only youtube videos.
+           
             if (i.id.kind === 'youtube#video') {
                 data.push({
                     vId: i.id.videoId,
